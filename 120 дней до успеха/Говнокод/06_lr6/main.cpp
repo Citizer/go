@@ -4,19 +4,19 @@
 using namespace std;
 
 int main() {
-    int sum, n, k;
+    int sum, number, count;
     cout << "The program checks whether the entered number is perfect" << endl;
     cout << "Enter number ";
-    cin >> n;
+    cin >> number;
     sum = 0;
-    k = 1;
-    while (k < n) {
-        if (n % k == 0) {
-            sum += k;
+    count = 1;
+    while (count < number) {
+        if (number % count == 0) {
+            sum += count;
         }
-        k ++;
+        count++;
     }
-    if (sum == n) {
+    if (sum == number) {
         cout << "Yes";
     } else {
         cout << "No";
