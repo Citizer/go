@@ -23,7 +23,7 @@ int main() {
                     }
                 break;
         case 2:
-                if (x <= 0 || x == 1) {
+                if ((x <= 0) || (x == 1)) {
                     cout << "x outside the range of acceptable values";
                 } else {
                     y = (C - exp(x - M_PI) + pow(cos(x), 2)) / log(x);
