@@ -12,7 +12,7 @@ int main() {
     seconddigit = number / 100 % 10;
     thirddigit = number / 10 % 10;
     fourthdigit = number % 10;
-    if (firstdigit == fourthdigit && seconddigit == thirddigit) {
+    if ((firstdigit == fourthdigit) && (seconddigit == thirddigit)) {
         cout << "The number is a palindrome";
     } else {
         cout << "The number is not a palindrome";
