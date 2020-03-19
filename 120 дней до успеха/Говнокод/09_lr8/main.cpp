@@ -20,10 +20,11 @@ int main() {
         int power; //мощность
     } TAuto;
     const int N = 100; //размер массива с запасом
-    int countrecord = 0; //число записей в файле
-    map <string, int> book; //ассоциативный массив
+    int countrecord = 0, t; //число записей в файле
+    map <string, int> book; //ассоциативный массив "модель: количество моделей"
     TAuto Auto[N]; // массив структур, возможно его лучше вставить после чтения из файла и не делать ему размер 100
     TAuto B; //вспомогательная переменная для сортировки
+    int mas[N]; //вспомогательный массив для сортировки
 
     //Читаем файл
     ifstream ifs("input.txt");
@@ -52,13 +53,21 @@ int main() {
     }
     cout << endl;
 
+   //заполняем массив по порядку
+    for (int i = 0; i < N; i++) {
+        mas[i] = i;
+    }
+
    //Сортировка и вывод структуры
     for (int i = 0; i < countrecord - 1; i++) {
         for (int j = countrecord - 2; j >= i; j--) {
-            if (Auto[j].number > Auto[j + 1].number) {
-                B.number = Auto[j].number;
-                Auto[j].number = Auto[j + 1].number;
-                Auto[j + 1].number = B.number;
+            if (Auto[mas[j]].number > Auto[mas[j + 1]].number) {
+                t = mas[j];
+                mas[j] = mas[j + 1];
+                mas[j + 1] = t;
+                //B.number = Auto[j].number;
+                //Auto[j].number = Auto[j + 1].number;
+                //Auto[j + 1].number = B.number;
             }
         }
     }
@@ -67,11 +76,11 @@ int main() {
     if (getch() == 13) {
         cout << "The available data about automobiles" << endl;
         for (int i = 0; i < countrecord; i++) {
-            cout << Auto[i].number << "  ";
-            cout << Auto[i].family << "  ";
-            cout << Auto[i].model << "  ";
-            cout << Auto[i].year << "  ";
-            cout << Auto[i].power << endl;
+            cout << Auto[mas[i]].number << "  ";
+            cout << Auto[mas[i]].family << "  ";
+            cout << Auto[mas[i]].model << "  ";
+            cout << Auto[mas[i]].year << "  ";
+            cout << Auto[mas[i]].power << endl;
         }
         cout << endl;
     }
@@ -86,9 +95,9 @@ int main() {
             book.insert ( pair<string,int> (Auto[i].model, 1) );
         }
     }
-    map <string,int>::iterator it;
-    for ( it=book.begin(); it!=book.end(); it++ ) {
-        cout << it->first << ": " << it->second << endl;
+    map <string, int>::iterator it;
+    for (it = book.begin(); it != book.end(); it++) {
+        cout << it -> first << ": " << it -> second << endl;
     }
 
     //вывод в файл
