@@ -1,6 +1,7 @@
-potopahin git book barneos ggdf 2002 
-chugunov blabla book pvl wer 2002
-strelnik auto journal audi 2002 1234
-vasya drink journal water 2010 4321 
-abba qwer journal tert 2019 5435
-rewr ytuy book novosib ggddf 1995
+6
+potopahin git book 2002 barneos ggdf
+chugunov blabla book 2010 pvl we
+strelnik auto journal 2002 audi 1234
+vasya drink journal 2010 water 4321 
+abba qwer journal 2019 tert 5435
+rewr ytuy book 1995 novosib ggddf
