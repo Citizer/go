@@ -1,0 +1,19 @@
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\bin\Debug\WindowsFormsAppLR3.exe.config
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\bin\Debug\WindowsFormsAppLR3.exe
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\bin\Debug\WindowsFormsAppLR3.pdb
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\obj\Debug\WindowsFormsAppLR3.csprojAssemblyReference.cache
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\obj\Debug\WindowsFormsAppLR3.Form1.resources
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\obj\Debug\WindowsFormsAppLR3.Properties.Resources.resources
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\obj\Debug\WindowsFormsAppLR3.csproj.GenerateResource.cache
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\obj\Debug\WindowsFormsAppLR3.csproj.CoreCompileInputs.cache
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\obj\Debug\WindowsFormsAppLR3.exe
+C:\Users\Citizer\Desktop\WindowsFormsAppLR3\obj\Debug\WindowsFormsAppLR3.pdb
+H:\Университет\7 сем\laby\Egor\OEPI\outLR3\bin\Debug\WindowsFormsAppLR3.exe.config
+H:\Университет\7 сем\laby\Egor\OEPI\outLR3\bin\Debug\WindowsFormsAppLR3.exe
+H:\Университет\7 сем\laby\Egor\OEPI\outLR3\bin\Debug\WindowsFormsAppLR3.pdb
+H:\Университет\7 сем\laby\Egor\OEPI\outLR3\obj\Debug\WindowsFormsAppLR3.csprojResolveAssemblyReference.cache
+H:\Университет\7 сем\laby\Egor\OEPI\outLR3\obj\Debug\WindowsFormsAppLR3.Form1.resources
+H:\Университет\7 сем\laby\Egor\OEPI\outLR3\obj\Debug\WindowsFormsAppLR3.Properties.Resources.resources
+H:\Университет\7 сем\laby\Egor\OEPI\outLR3\obj\Debug\WindowsFormsAppLR3.csproj.GenerateResource.Cache
+H:\Университет\7 сем\laby\Egor\OEPI\outLR3\obj\Debug\WindowsFormsAppLR3.exe
+H:\Университет\7 сем\laby\Egor\OEPI\outLR3\obj\Debug\WindowsFormsAppLR3.pdb
