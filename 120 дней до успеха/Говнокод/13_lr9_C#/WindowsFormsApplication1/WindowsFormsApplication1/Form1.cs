@@ -24,7 +24,6 @@ namespace WindowsFormsApplication1
             OpenFileDialog of = new OpenFileDialog();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-
                 var sr = new StreamReader(openFileDialog1.FileName);
 
                 // считывание в таблицу
@@ -32,16 +31,16 @@ namespace WindowsFormsApplication1
                 {
                     int RowsCount;
                     int.TryParse(sr.ReadLine(), out RowsCount); //считываем число строк
-
+                    string[] separator={"!?&№~"};
                     for (int i = 0; i < RowsCount; i++)
                     {
-                        string[] row = sr.ReadLine().Split(' ');
+                        string[] row = sr.ReadLine().Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
                         if (row[2] == "book")
                         {
                             dataGridView1.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5]);
                         }
-                        else
+                        if (row[2] == "journal")
                         {
                             dataGridView2.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5]);
                         }
@@ -103,7 +102,7 @@ namespace WindowsFormsApplication1
                         {
                             for (int j = 0; j < dataGridView1.ColumnCount; j++)
                             {
-                                sf.Write(dataGridView1.Rows[i].Cells[j].Value.ToString() + " ");
+                                sf.Write(dataGridView1.Rows[i].Cells[j].Value.ToString() + "!?&№~");
                             }
                             sf.WriteLine();                            
                         }
@@ -111,7 +110,7 @@ namespace WindowsFormsApplication1
                         {
                             for (int j = 0; j < dataGridView2.ColumnCount; j++)
                             {
-                                sf.Write(dataGridView2.Rows[i].Cells[j].Value.ToString() + " ");
+                                sf.Write(dataGridView2.Rows[i].Cells[j].Value.ToString() + "!?&№~");
                             }
                             sf.WriteLine();
                         }
@@ -128,6 +127,42 @@ namespace WindowsFormsApplication1
 
                     myStream.Close();
                 }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Удалить запись?", "Удаление", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+
+                    int delete = dataGridView1.SelectedCells[0].RowIndex;
+                    dataGridView1.Rows.RemoveAt(delete);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Нельзя удалить запись, т.к. она не выбрана");
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Удалить запись?", "Удаление", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+
+                    int delete = dataGridView2.SelectedCells[0].RowIndex;
+                    dataGridView2.Rows.RemoveAt(delete);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Нельзя удалить запись, т.к. она не выбhана");
             }
         }
     }

@@ -18,3 +18,14 @@ D:\code\13_lr\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\Window
 D:\code\13_lr\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
 D:\code\13_lr\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.book.resources
 D:\code\13_lr\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.journal.resources
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.book.resources
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.journal.resources
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+D:\code\13_lr9_C#\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
