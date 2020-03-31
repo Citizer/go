@@ -20,8 +20,9 @@ namespace WindowsFormsApplication1
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {            
-            //проверка все textbox на пустоту, если пустой то закрасить красным
+        {                                         
+            //проверка всех textbox на пустоту, если пустой то закрасить красным
+            Form1 main = this.Owner as Form1;
             bool someEmpty = false;
             foreach (TextBox textBox in Controls.OfType<TextBox>())
             {
@@ -32,10 +33,19 @@ namespace WindowsFormsApplication1
                 }               
             }
 
-            if (!someEmpty) //если не пустые то заполняем
-            {
-                Form1 main = this.Owner as Form1;
+            if ((!someEmpty) & (main.flagb.Text == "0")) //если не пустые и нажата сохранить
+            {              
                 main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year, textBox4.Text, textBox5.Text);
+                this.Close();
+            }
+
+            if ((!someEmpty) & (main.flagb.Text == "1")) //если не пустые и нажата изменить
+            {
+                //сначала удаляем текущую запись, потом записываем изменения             
+                int delete = main.dataGridView1.SelectedCells[0].RowIndex;
+                main.dataGridView1.Rows.RemoveAt(delete);
+                main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year, textBox4.Text, textBox5.Text);
+                main.flagb.Text = "0"; //переводим в режим добавления, а не сохранения
                 this.Close();
             }
         }
@@ -44,5 +54,14 @@ namespace WindowsFormsApplication1
         {
             (sender as TextBox).BackColor = Color.Empty; //Если заполнили то убираем красный цвет
         }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsDigit(e.KeyChar) == false) return; // Если символ цифра, то возвращаемся из метода
+            e.Handled = true;
+            return;
+        }
+
+        
     }
 }

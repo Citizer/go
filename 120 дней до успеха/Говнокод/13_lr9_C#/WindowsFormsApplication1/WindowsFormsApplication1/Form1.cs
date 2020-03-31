@@ -13,9 +13,11 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        string[] separator = { "!?&№~" };
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();         
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -31,7 +33,7 @@ namespace WindowsFormsApplication1
                 {
                     int RowsCount;
                     int.TryParse(sr.ReadLine(), out RowsCount); //считываем число строк
-                    string[] separator={"!?&№~"};
+                    //string[] separator = { "!?&№~" };
                     for (int i = 0; i < RowsCount; i++)
                     {
                         string[] row = sr.ReadLine().Split(separator, StringSplitOptions.RemoveEmptyEntries);
@@ -45,30 +47,14 @@ namespace WindowsFormsApplication1
                             dataGridView2.Rows.Add(row[0], row[1], row[2], row[3], row[4], row[5]);
                         }
                     }
-
                 }
                 catch
                 {
                     MessageBox.Show("Что-то пошло не так((");
                 }
-            }
-
-
-
+            }                  
+        }     
                 
-                
-            }
-            
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-              
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -86,8 +72,7 @@ namespace WindowsFormsApplication1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Stream myStream;
-            
+            Stream myStream;            
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -164,6 +149,47 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("Нельзя удалить запись, т.к. она не выбhана");
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            
+            book book = new book();
+            book.Owner = this;            
+            book.textBox1.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            book.textBox2.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            DateTime newDateTime;
+            string s;
+            s = "30.03." + dataGridView1.CurrentRow.Cells[3].Value.ToString() + " 20:28:46"; //дописываем для правильного формата любую дату и время
+            DateTime.TryParse(s, out newDateTime);
+            book.dateTimePicker1.Value = newDateTime;                    
+            book.textBox4.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+            book.textBox5.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+            flagb.Text = "1";
+            book.ShowDialog();
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            flagb.Text = "0"; //нулевые значения передаем, если нажимаем добавить, "1" - если изменить
+            flagj.Text = "0";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            journal journal = new journal();
+            journal.Owner = this;
+            journal.textBox1.Text = dataGridView2.CurrentRow.Cells[0].Value.ToString();
+            journal.textBox2.Text = dataGridView2.CurrentRow.Cells[1].Value.ToString();
+            DateTime newDateTime;
+            string s;
+            s = "30.03." + dataGridView2.CurrentRow.Cells[3].Value.ToString() + " 20:28:46"; //дописываем для правильного формата любую дату и время
+            DateTime.TryParse(s, out newDateTime);
+            journal.dateTimePicker1.Value = newDateTime;
+            journal.textBox4.Text = dataGridView2.CurrentRow.Cells[4].Value.ToString();
+            journal.textBox5.Text = dataGridView2.CurrentRow.Cells[5].Value.ToString();
+            flagj.Text = "1";
+            journal.ShowDialog();
         }
     }
 }
