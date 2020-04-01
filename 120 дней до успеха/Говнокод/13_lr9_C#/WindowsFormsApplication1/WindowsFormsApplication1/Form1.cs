@@ -14,6 +14,10 @@ namespace WindowsFormsApplication1
     public partial class Form1 : Form
     {
         string[] separator = { "!?&№~" };
+
+        public int test = 25; 
+
+
         public Form1()
         {
             InitializeComponent();         
@@ -58,7 +62,7 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            book book = new book();
+            book book = new book(test);
             book.Owner = this;
             book.ShowDialog();
         }
@@ -154,7 +158,7 @@ namespace WindowsFormsApplication1
         private void button6_Click(object sender, EventArgs e)
         {
             
-            book book = new book();
+            book book = new book(test);
             book.Owner = this;            
             book.textBox1.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
             book.textBox2.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();

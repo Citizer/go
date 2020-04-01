@@ -12,17 +12,23 @@ namespace WindowsFormsApplication1
 {
     public partial class book : Form
     {
-        public book()
+        int test2;
+
+        public book(int test)
         {
             InitializeComponent();
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "yyyy";
+            test2 = test;
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {                                         
+        {       
+            
+
             //проверка всех textbox на пустоту, если пустой то закрасить красным
             Form1 main = this.Owner as Form1;
+            
             bool someEmpty = false;
             foreach (TextBox textBox in Controls.OfType<TextBox>())
             {
