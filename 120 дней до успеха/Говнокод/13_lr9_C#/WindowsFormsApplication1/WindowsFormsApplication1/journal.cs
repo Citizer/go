@@ -12,7 +12,7 @@ namespace WindowsFormsApplication1
 {
     public partial class journal : Form
     {
-        public journal()
+        public journal(bool CheckToCreateJournal)
         {
             InitializeComponent();            
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
@@ -33,17 +33,17 @@ namespace WindowsFormsApplication1
                 }
             }
 
-            if ((!someEmpty) & (main.flagj.Text == "0")) //если не пустые и нажата сохранить
+            if ((!someEmpty) & (!main.CheckToCreateJournal)) //если не пустые и нажата сохранить
             {                
                 main.dataGridView2.Rows.Add(textBox1.Text, textBox2.Text, "journal", dateTimePicker1.Value.Year, textBox4.Text, textBox5.Text);
                 this.Close();
             }
-            if ((!someEmpty) & (main.flagj.Text == "1")) //если не пустые и нажата изменить
+            if ((!someEmpty) & (main.CheckToCreateJournal))//если не пустые и нажата изменить
             {
                 int delete = main.dataGridView2.SelectedCells[0].RowIndex;
                 main.dataGridView2.Rows.RemoveAt(delete);
                 main.dataGridView2.Rows.Add(textBox1.Text, textBox2.Text, "journal", dateTimePicker1.Value.Year, textBox4.Text, textBox5.Text);
-                main.flagb.Text = "0";
+                main.CheckToCreateJournal = false; //переводим в режим добавления, а не сохранения
                 this.Close();
             }
         }

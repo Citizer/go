@@ -12,14 +12,12 @@ namespace WindowsFormsApplication1
 {
     public partial class book : Form
     {
-        int test2;
 
-        public book(int test)
+        public book(bool CheckToCreateBook)
         {
             InitializeComponent();
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.CustomFormat = "yyyy";
-            test2 = test;
+            dateTimePicker1.CustomFormat = "yyyy";            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -39,19 +37,19 @@ namespace WindowsFormsApplication1
                 }               
             }
 
-            if ((!someEmpty) & (main.flagb.Text == "0")) //если не пустые и нажата сохранить
+            if ((!someEmpty) & (!main.CheckToCreateBook)) //если не пустые и нажата сохранить
             {              
                 main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year, textBox4.Text, textBox5.Text);
                 this.Close();
             }
 
-            if ((!someEmpty) & (main.flagb.Text == "1")) //если не пустые и нажата изменить
+            if ((!someEmpty) & (main.CheckToCreateBook)) //если не пустые и нажата изменить
             {
                 //сначала удаляем текущую запись, потом записываем изменения             
                 int delete = main.dataGridView1.SelectedCells[0].RowIndex;
                 main.dataGridView1.Rows.RemoveAt(delete);
                 main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year, textBox4.Text, textBox5.Text);
-                main.flagb.Text = "0"; //переводим в режим добавления, а не сохранения
+                main.CheckToCreateBook = false; //переводим в режим добавления, а не редактирования                
                 this.Close();
             }
         }

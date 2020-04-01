@@ -1,0 +1,7 @@
+6
+potopahinSystem.String[]gitSystem.String[]bookSystem.String[]2002System.String[]barneosSystem.String[]ggdfSystem.String[]
+chugunovSystem.String[]blablaSystem.String[]bookSystem.String[]2010System.String[]pvlSystem.String[]weSystem.String[]
+rewrSystem.String[]ytuySystem.String[]bookSystem.String[]1995System.String[]novosibSystem.String[]ggddfSystem.String[]
+strelnikSystem.String[]autoSystem.String[]journalSystem.String[]2002System.String[]audiSystem.String[]1234System.String[]
+vasyaSystem.String[]drinkSystem.String[]journalSystem.String[]2010System.String[]waterSystem.String[]4321System.String[]
+abbaSystem.String[]qwerSystem.String[]journalSystem.String[]2019System.String[]tertSystem.String[]5435System.String[]

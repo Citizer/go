@@ -13,9 +13,9 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
-        string[] separator = { "!?&№~" };
-
-        public int test = 25; 
+        string[] separator = { "!?&№~" };        
+        public bool CheckToCreateBook = false;
+        public bool CheckToCreateJournal = false;
 
 
         public Form1()
@@ -62,14 +62,14 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            book book = new book(test);
+            book book = new book(CheckToCreateBook);
             book.Owner = this;
             book.ShowDialog();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            journal journal = new journal();
+            journal journal = new journal(CheckToCreateJournal);
             journal.Owner = this;
             journal.ShowDialog();
         }
@@ -121,79 +121,125 @@ namespace WindowsFormsApplication1
 
         private void button5_Click(object sender, EventArgs e)
         {
-            try
+            if (dataGridView1.RowCount > 0)
             {
-                if (MessageBox.Show("Удалить запись?", "Удаление", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-                {
 
-                    int delete = dataGridView1.SelectedCells[0].RowIndex;
-                    dataGridView1.Rows.RemoveAt(delete);
+                try
+                {
+                    if (MessageBox.Show("Удалить запись о книге?", "Удаление", MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                    {
+
+                        int delete = dataGridView1.SelectedCells[0].RowIndex;
+                        dataGridView1.Rows.RemoveAt(delete);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Нельзя удалить запись о книге, т.к. она не выбрана");
                 }
             }
-            catch
+            else
             {
-                MessageBox.Show("Нельзя удалить запись, т.к. она не выбрана");
+                MessageBox.Show("Нет книг для удаления!");
             }
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            try
+            if (dataGridView2.RowCount > 0)
             {
-                if (MessageBox.Show("Удалить запись?", "Удаление", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                try
                 {
+                    if (MessageBox.Show("Удалить запись о журнале?", "Удаление", MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                    {
 
-                    int delete = dataGridView2.SelectedCells[0].RowIndex;
-                    dataGridView2.Rows.RemoveAt(delete);
+                        int delete = dataGridView2.SelectedCells[0].RowIndex;
+                        dataGridView2.Rows.RemoveAt(delete);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Нельзя удалить запись о журнале, т.к. она не выбрана");
                 }
             }
-            catch
+            else
             {
-                MessageBox.Show("Нельзя удалить запись, т.к. она не выбhана");
+                MessageBox.Show("Нет журналов для удаления!");
             }
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            
-            book book = new book(test);
-            book.Owner = this;            
-            book.textBox1.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            book.textBox2.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-            DateTime newDateTime;
-            string s;
-            s = "30.03." + dataGridView1.CurrentRow.Cells[3].Value.ToString() + " 20:28:46"; //дописываем для правильного формата любую дату и время
-            DateTime.TryParse(s, out newDateTime);
-            book.dateTimePicker1.Value = newDateTime;                    
-            book.textBox4.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
-            book.textBox5.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-            flagb.Text = "1";
-            book.ShowDialog();
+            try
+            {
+
+                book book = new book(CheckToCreateBook);
+                book.Owner = this;
+                book.textBox1.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                book.textBox2.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                DateTime newDateTime;
+                string s;
+                s = "30.03." + dataGridView1.CurrentRow.Cells[3].Value.ToString() + " 20:28:46"; //дописываем для правильного формата любую дату и время
+                DateTime.TryParse(s, out newDateTime);
+                book.dateTimePicker1.Value = newDateTime;
+                book.textBox4.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+                book.textBox5.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+                CheckToCreateBook = true; //     переводим в режим редактирования       
+                book.ShowDialog();
+            }
+            catch
+            {
+                MessageBox.Show("Нет записей для редактирования!");
+            }
         }
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            flagb.Text = "0"; //нулевые значения передаем, если нажимаем добавить, "1" - если изменить
-            flagj.Text = "0";
+
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            journal journal = new journal();
-            journal.Owner = this;
-            journal.textBox1.Text = dataGridView2.CurrentRow.Cells[0].Value.ToString();
-            journal.textBox2.Text = dataGridView2.CurrentRow.Cells[1].Value.ToString();
-            DateTime newDateTime;
-            string s;
-            s = "30.03." + dataGridView2.CurrentRow.Cells[3].Value.ToString() + " 20:28:46"; //дописываем для правильного формата любую дату и время
-            DateTime.TryParse(s, out newDateTime);
-            journal.dateTimePicker1.Value = newDateTime;
-            journal.textBox4.Text = dataGridView2.CurrentRow.Cells[4].Value.ToString();
-            journal.textBox5.Text = dataGridView2.CurrentRow.Cells[5].Value.ToString();
-            flagj.Text = "1";
-            journal.ShowDialog();
+            try
+            {
+
+                journal journal = new journal(CheckToCreateJournal);
+                journal.Owner = this;
+                journal.textBox1.Text = dataGridView2.CurrentRow.Cells[0].Value.ToString();
+                journal.textBox2.Text = dataGridView2.CurrentRow.Cells[1].Value.ToString();
+                DateTime newDateTime;
+                string s;
+                s = "30.03." + dataGridView2.CurrentRow.Cells[3].Value.ToString() + " 20:28:46"; //дописываем для правильного формата любую дату и время
+                DateTime.TryParse(s, out newDateTime);
+                journal.dateTimePicker1.Value = newDateTime;
+                journal.textBox4.Text = dataGridView2.CurrentRow.Cells[4].Value.ToString();
+                journal.textBox5.Text = dataGridView2.CurrentRow.Cells[5].Value.ToString();
+                CheckToCreateJournal = true; //     переводим в режим редактирования 
+                journal.ShowDialog();
+            }
+            catch
+            {
+                MessageBox.Show("Нет записей для редактирования!");
+            }
         }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_SizeChanged_1(object sender, EventArgs e)
+        {
+            dataGridView1.Width = this.Width / 2 - 35;
+            dataGridView2.Width = this.Width / 2 - 25;
+            dataGridView2.Left = this.Width / 2 - 3;
+            button1.Left = this.Width / 2 - 165;
+            button3.Left = this.Width / 2 + 18;
+            
+        }
+
+        
     }
 }
