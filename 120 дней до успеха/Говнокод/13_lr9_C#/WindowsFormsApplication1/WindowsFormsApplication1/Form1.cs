@@ -237,6 +237,36 @@ namespace WindowsFormsApplication1
             dataGridView2.Left = this.Width / 2 - 3;
             button1.Left = this.Width / 2 - 165;
             button3.Left = this.Width / 2 + 18;
+
+            dataGridView1.AutoResizeColumns();
+            float size = 0;
+
+            if (dataGridView1.AutoSizeColumnsMode == DataGridViewAutoSizeColumnsMode.AllCells)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    size += dataGridView1.Columns[i].FillWeight;
+                }
+            } else
+            {
+                size = dataGridView1.Width;
+            }
+            size = size + 1;
+            if (size < dataGridView1.Width)
+            {
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; 
+                size = size / 5;
+
+                for (int i = 0; i < 5; i++)
+                {
+                    dataGridView1.Columns[i].FillWeight += size;
+                }
+            } else {
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dataGridView1.AutoResizeColumns();
+            }
+
+
         }  
 
         

@@ -40,6 +40,7 @@ namespace WindowsFormsApplication1
             if ((!someEmpty) & (!main.CheckToCreateBook)) //если не пустые и нажата сохранить
             {              
                 main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);
+                main.dataGridView1.AutoResizeColumns();
                 this.Close();
             }
 
@@ -49,7 +50,8 @@ namespace WindowsFormsApplication1
                 int delete = main.dataGridView1.SelectedCells[0].RowIndex;
                 main.dataGridView1.Rows.RemoveAt(delete);
                 main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);
-                main.CheckToCreateBook = false; //переводим в режим добавления, а не редактирования                
+                main.CheckToCreateBook = false; //переводим в режим добавления, а не редактирования      
+                main.dataGridView2.AutoResizeColumns();
                 this.Close();
             }
         }
