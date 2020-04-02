@@ -165,6 +165,7 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
+            this.MaximumSize = new System.Drawing.Size(640, 237);
             this.MinimumSize = new System.Drawing.Size(330, 237);
             this.Name = "journal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

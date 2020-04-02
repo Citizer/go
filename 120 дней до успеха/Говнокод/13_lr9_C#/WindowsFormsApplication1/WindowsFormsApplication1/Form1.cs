@@ -13,9 +13,9 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
-        string[] separator = { "!?&№~" };        
-        public bool CheckToCreateBook = false;
-        public bool CheckToCreateJournal = false;
+        string[] separator = { "!?&№~" };        //разделитель записей в файле
+        public bool CheckToCreateBook = false; //переменная для проверки на добавление или редактирование книг
+        public bool CheckToCreateJournal = false; //переменная для проверки на добавление или редактирование журналов
 
 
         public Form1()
@@ -36,8 +36,7 @@ namespace WindowsFormsApplication1
                 try
                 {
                     int RowsCount;
-                    int.TryParse(sr.ReadLine(), out RowsCount); //считываем число строк
-                    //string[] separator = { "!?&№~" };
+                    int.TryParse(sr.ReadLine(), out RowsCount); //считываем число строк                    
                     for (int i = 0; i < RowsCount; i++)
                     {
                         string[] row = sr.ReadLine().Split(separator, StringSplitOptions.RemoveEmptyEntries);
@@ -60,66 +59,76 @@ namespace WindowsFormsApplication1
         }     
                 
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) //запуск формы для добавления книги
         {
             book book = new book(CheckToCreateBook);
             book.Owner = this;
+            book.Text = "Добавление книги";
             book.ShowDialog();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e) //запуск формы для добавления журнала
         {
             journal journal = new journal(CheckToCreateJournal);
             journal.Owner = this;
+            journal.Text = "Добавление журнала";
             journal.ShowDialog();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) //запись значений в файл
         {
-            Stream myStream;            
+            Stream myStream;
 
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            if ((dataGridView1.RowCount == 0) & (dataGridView2.RowCount == 0)) //проверка на пустоту записей
             {
-                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                MessageBox.Show("Нет книг и журналов для сохранения!");
+            }
+            else
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    StreamWriter sf = new StreamWriter(myStream);
-                    try
+                    if ((myStream = saveFileDialog1.OpenFile()) != null)
                     {
-                        sf.Write(dataGridView1.RowCount + dataGridView2.RowCount);
-                        sf.WriteLine();
-                        for (int i = 0; i < dataGridView1.RowCount; i++)
+                        StreamWriter sf = new StreamWriter(myStream);
+                        try
                         {
-                            for (int j = 0; j < dataGridView1.ColumnCount; j++)
-                            {
-                                sf.Write(dataGridView1.Rows[i].Cells[j].Value.ToString() + "!?&№~");
-                            }
-                            sf.WriteLine();                            
-                        }
-                        for (int i = 0; i < dataGridView2.RowCount; i++)
-                        {
-                            for (int j = 0; j < dataGridView2.ColumnCount; j++)
-                            {
-                                sf.Write(dataGridView2.Rows[i].Cells[j].Value.ToString() + "!?&№~");
-                            }
+                            sf.Write(dataGridView1.RowCount + dataGridView2.RowCount);
                             sf.WriteLine();
+                            for (int i = 0; i < dataGridView1.RowCount; i++)
+                            {
+                                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                                {
+                                    sf.Write(dataGridView1.Rows[i].Cells[j].Value.ToString() + separator[0]);
+                                }
+                                sf.WriteLine();
+                            }
+                            for (int i = 0; i < dataGridView2.RowCount; i++)
+                            {
+                                for (int j = 0; j < dataGridView2.ColumnCount; j++)
+                                {
+                                    sf.Write(dataGridView2.Rows[i].Cells[j].Value.ToString() + separator[0]);
+                                }
+                                sf.WriteLine();
+                            }
+
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Что-то пошло не так((");
+                        }
+                        finally
+                        {
+                            sf.Close();
+                            MessageBox.Show("Файл успешно сохранен");
                         }
 
+                        myStream.Close();
                     }
-                    catch
-                    {
-                        MessageBox.Show("Что-то пошло не так((");
-                    }
-                    finally
-                    {
-                        sf.Close();
-                    }
-
-                    myStream.Close();
                 }
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e) //удаление книги
         {
             if (dataGridView1.RowCount > 0)
             {
@@ -145,7 +154,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void button8_Click(object sender, EventArgs e) //удаление журнала
         {
             if (dataGridView2.RowCount > 0)
             {
@@ -170,12 +179,11 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e) //запуск формы для редактирования книги
         {
             try
             {
-
-                book book = new book(CheckToCreateBook);
+                book book = new book(CheckToCreateBook); 
                 book.Owner = this;
                 book.textBox1.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 book.textBox2.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
@@ -186,21 +194,17 @@ namespace WindowsFormsApplication1
                 book.dateTimePicker1.Value = newDateTime;
                 book.textBox4.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
                 book.textBox5.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                CheckToCreateBook = true; //     переводим в режим редактирования       
+                CheckToCreateBook = true; //     переводим в режим редактирования   
+                book.Text = "Изменение книги";
                 book.ShowDialog();
             }
             catch
             {
-                MessageBox.Show("Нет записей для редактирования!");
+                MessageBox.Show("Нет книг для редактирования!");
             }
-        }
+        }        
 
-        private void Form1_Activated(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button7_Click(object sender, EventArgs e)
+        private void button7_Click(object sender, EventArgs e) //запуск формы для редактирования книги
         {
             try
             {
@@ -217,28 +221,23 @@ namespace WindowsFormsApplication1
                 journal.textBox4.Text = dataGridView2.CurrentRow.Cells[4].Value.ToString();
                 journal.textBox5.Text = dataGridView2.CurrentRow.Cells[5].Value.ToString();
                 CheckToCreateJournal = true; //     переводим в режим редактирования 
+                journal.Text = "Изменение журнала";
                 journal.ShowDialog();
             }
             catch
             {
-                MessageBox.Show("Нет записей для редактирования!");
+                MessageBox.Show("Нет журналов для редактирования!");
             }
         }
 
-        private void Form1_SizeChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_SizeChanged_1(object sender, EventArgs e)
+        private void Form1_SizeChanged(object sender, EventArgs e) // подгонка размеров при изменении размеров формы
         {
             dataGridView1.Width = this.Width / 2 - 35;
             dataGridView2.Width = this.Width / 2 - 25;
             dataGridView2.Left = this.Width / 2 - 3;
             button1.Left = this.Width / 2 - 165;
             button3.Left = this.Width / 2 + 18;
-            
-        }
+        }  
 
         
     }
