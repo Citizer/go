@@ -16,6 +16,7 @@ namespace WindowsFormsApplication1
         string[] separator = { "!?&№~" };        //разделитель записей в файле
         public bool CheckToCreateBook = false; //переменная для проверки на добавление или редактирование книг
         public bool CheckToCreateJournal = false; //переменная для проверки на добавление или редактирование журналов
+        public bool CheckToAdd; //переменная для проверки работы с книгой или журналом, false - книга, true - журнал
 
 
         public Form1()
@@ -61,18 +62,29 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e) //запуск формы для добавления книги
         {
-            book book = new book(CheckToCreateBook);
+            book book = new book(CheckToCreateBook, CheckToAdd);
             book.Owner = this;
-            book.Text = "Добавление книги";
+            book.Text = "Добавление книги";                       
+            book.label6.Visible = false;
+            book.label7.Visible = false;
+            CheckToAdd = false;
             book.ShowDialog();
         }
 
         private void button4_Click(object sender, EventArgs e) //запуск формы для добавления журнала
         {
+            book book = new book(CheckToCreateBook, CheckToAdd);
+            book.Owner = this;
+            book.Text = "Добавление журнала";            
+            book.label4.Visible = false;
+            book.label5.Visible = false;
+            CheckToAdd = true;
+            book.ShowDialog();
+            /*
             journal journal = new journal(CheckToCreateJournal);
             journal.Owner = this;
             journal.Text = "Добавление журнала";
-            journal.ShowDialog();
+            journal.ShowDialog();*/
         }
 
         private void button3_Click(object sender, EventArgs e) //запись значений в файл
@@ -183,7 +195,7 @@ namespace WindowsFormsApplication1
         {
             try
             {
-                book book = new book(CheckToCreateBook); 
+                book book = new book(CheckToCreateBook, CheckToAdd); 
                 book.Owner = this;
                 book.textBox1.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 book.textBox2.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
@@ -194,8 +206,11 @@ namespace WindowsFormsApplication1
                 book.dateTimePicker1.Value = newDateTime;
                 book.textBox4.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
                 book.textBox5.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                CheckToCreateBook = true; //     переводим в режим редактирования   
+                CheckToCreateBook = true; //     переводим в режим редактирования  
+                CheckToAdd = false;
                 book.Text = "Изменение книги";
+                book.label4.Visible = false;
+                book.label5.Visible = false;
                 book.ShowDialog();
             }
             catch
@@ -204,11 +219,28 @@ namespace WindowsFormsApplication1
             }
         }        
 
-        private void button7_Click(object sender, EventArgs e) //запуск формы для редактирования книги
+        private void button7_Click(object sender, EventArgs e) //запуск формы для редактирования журнала
         {
             try
             {
-
+                book book = new book(CheckToCreateJournal, CheckToAdd);
+                book.Owner = this;
+                book.textBox1.Text = dataGridView2.CurrentRow.Cells[0].Value.ToString();
+                book.textBox2.Text = dataGridView2.CurrentRow.Cells[1].Value.ToString();
+                DateTime newDateTime;
+                string s;
+                s = "30.03." + dataGridView2.CurrentRow.Cells[3].Value.ToString() + " 20:28:46"; //дописываем для правильного формата любую дату и время
+                DateTime.TryParse(s, out newDateTime);
+                book.dateTimePicker1.Value = newDateTime;
+                book.textBox4.Text = dataGridView2.CurrentRow.Cells[4].Value.ToString();
+                book.textBox5.Text = dataGridView2.CurrentRow.Cells[5].Value.ToString();
+                CheckToCreateJournal = true; //     переводим в режим редактирования  
+                CheckToAdd = true;
+                book.Text = "Изменение журнала";
+                book.label6.Visible = false;
+                book.label7.Visible = false;
+                book.ShowDialog();
+                /*
                 journal journal = new journal(CheckToCreateJournal);
                 journal.Owner = this;
                 journal.textBox1.Text = dataGridView2.CurrentRow.Cells[0].Value.ToString();
@@ -222,7 +254,7 @@ namespace WindowsFormsApplication1
                 journal.textBox5.Text = dataGridView2.CurrentRow.Cells[5].Value.ToString();
                 CheckToCreateJournal = true; //     переводим в режим редактирования 
                 journal.Text = "Изменение журнала";
-                journal.ShowDialog();
+                journal.ShowDialog();*/
             }
             catch
             {
@@ -231,6 +263,12 @@ namespace WindowsFormsApplication1
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e) // подгонка размеров при изменении размеров формы
+        {
+            AllResize();
+
+        }
+
+        public void AllResize()
         {
             dataGridView1.Width = this.Width / 2 - 35;
             dataGridView2.Width = this.Width / 2 - 25;
@@ -247,27 +285,33 @@ namespace WindowsFormsApplication1
                 {
                     size += dataGridView1.Columns[i].FillWeight;
                 }
-            } else
+            }
+            else
             {
                 size = dataGridView1.Width;
             }
             size = size + 1;
             if (size < dataGridView1.Width)
             {
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; 
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 size = size / 5;
 
                 for (int i = 0; i < 5; i++)
                 {
                     dataGridView1.Columns[i].FillWeight += size;
                 }
-            } else {
+            }
+            else
+            {
                 dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 dataGridView1.AutoResizeColumns();
             }
+        }
 
-
-        }  
+        private void dataGridView1_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            AllResize();
+        }
 
         
     }

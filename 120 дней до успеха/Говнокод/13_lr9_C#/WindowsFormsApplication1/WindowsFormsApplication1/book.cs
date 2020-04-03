@@ -12,20 +12,21 @@ namespace WindowsFormsApplication1
 {
     public partial class book : Form
     {
+        public bool InCheckToAdd;
 
-        public book(bool CheckToCreateBook)
-        {
+        public book(bool CheckToCreateBook, bool CheckToAdd)
+        {            
             InitializeComponent();
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.CustomFormat = "yyyy";            
+            dateTimePicker1.CustomFormat = "yyyy";
+            InCheckToAdd = CheckToAdd;
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {       
-            
+        {
+            Form1 main = this.Owner as Form1; //стали владельцем
 
-            //проверка всех textbox на пустоту, если пустой то закрасить красным
-            Form1 main = this.Owner as Form1;
+            //проверка всех textbox на пустоту, если пустой то закрасить красным        
             
             bool someEmpty = false;
             foreach (TextBox textBox in Controls.OfType<TextBox>())
@@ -37,14 +38,14 @@ namespace WindowsFormsApplication1
                 }               
             }
 
-            if ((!someEmpty) & (!main.CheckToCreateBook)) //если не пустые и нажата сохранить
+            if ((!someEmpty) & (!main.CheckToCreateBook) & (!main.CheckToAdd)) //если не пустые и нажата сохранить и выбрана книга то добавляем
             {              
                 main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);
                 main.dataGridView1.AutoResizeColumns();
                 this.Close();
             }
 
-            if ((!someEmpty) & (main.CheckToCreateBook)) //если не пустые и нажата изменить
+            if ((!someEmpty) & (main.CheckToCreateBook) & (!main.CheckToAdd)) //если не пустые и нажата изменить и выбрана книга то редактируем
             {
                 //сначала удаляем текущую запись, потом записываем изменения             
                 int delete = main.dataGridView1.SelectedCells[0].RowIndex;
@@ -54,6 +55,22 @@ namespace WindowsFormsApplication1
                 main.dataGridView2.AutoResizeColumns();
                 this.Close();
             }
+
+            if ((!someEmpty) & (!main.CheckToCreateJournal) & (main.CheckToAdd)) //если не пустые и нажата сохранить и выбран журнал
+            {
+                main.dataGridView2.Rows.Add(textBox1.Text, textBox2.Text, "journal", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);
+                this.Close();
+            }
+            if ((!someEmpty) & (main.CheckToCreateJournal) & (main.CheckToAdd))//если не пустые и нажата изменить и выбран журнал
+            {
+                int delete = main.dataGridView2.SelectedCells[0].RowIndex;
+                main.dataGridView2.Rows.RemoveAt(delete);
+                main.dataGridView2.Rows.Add(textBox1.Text, textBox2.Text, "journal", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);
+                main.CheckToCreateJournal = false; //переводим в режим добавления, а не сохранения
+                this.Close();
+            }
+
+            main.AllResize();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -63,10 +80,27 @@ namespace WindowsFormsApplication1
 
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsDigit(e.KeyChar) == false) return; // Если символ цифра, то возвращаемся из метода
-            e.Handled = true;
-            return;
+            if (!InCheckToAdd) // Если книга
+            {
+                if (Char.IsDigit(e.KeyChar) == false) return; // Если символ цифра, то возвращаемся из метода
+                e.Handled = true;
+                return;
+            }
         }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (InCheckToAdd) // Если журнал
+            {
+                if (Char.IsDigit(e.KeyChar) == true) // Если символ цифра, то возвращаемся из метода
+                {
+                    return;
+                }
+                e.Handled = true;
+                return;
+            }
+        }
+               
        
     }
 }

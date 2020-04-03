@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddingEditing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddingEditing.Designer.cs">
+      <DependentUpon>AddingEditing.cs</DependentUpon>
+    </Compile>
     <Compile Include="book.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddingEditing.resx">
+      <DependentUpon>AddingEditing.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="book.resx">
       <DependentUpon>book.cs</DependentUpon>
     </EmbeddedResource>
