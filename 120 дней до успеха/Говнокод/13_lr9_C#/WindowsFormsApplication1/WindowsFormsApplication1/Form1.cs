@@ -62,23 +62,23 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e) //запуск формы для добавления книги
         {
-            book book = new book(CheckToCreateBook, CheckToAdd);
+            book book = new book();
             book.Owner = this;
             book.Text = "Добавление книги";                       
             book.label6.Visible = false;
             book.label7.Visible = false;
-            CheckToAdd = false;
+            CheckToAdd = false; //работаем с книгой
             book.ShowDialog();
         }
 
         private void button4_Click(object sender, EventArgs e) //запуск формы для добавления журнала
         {
-            book book = new book(CheckToCreateBook, CheckToAdd);
+            book book = new book();
             book.Owner = this;
             book.Text = "Добавление журнала";            
             book.label4.Visible = false;
             book.label5.Visible = false;
-            CheckToAdd = true;
+            CheckToAdd = true; //работаем с журналом
             book.ShowDialog();
             /*
             journal journal = new journal(CheckToCreateJournal);
@@ -195,7 +195,7 @@ namespace WindowsFormsApplication1
         {
             try
             {
-                book book = new book(CheckToCreateBook, CheckToAdd); 
+                book book = new book(); 
                 book.Owner = this;
                 book.textBox1.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 book.textBox2.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
@@ -207,10 +207,10 @@ namespace WindowsFormsApplication1
                 book.textBox4.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
                 book.textBox5.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
                 CheckToCreateBook = true; //     переводим в режим редактирования  
-                CheckToAdd = false;
+                CheckToAdd = false; // работаем с книгой
                 book.Text = "Изменение книги";
-                book.label4.Visible = false;
-                book.label5.Visible = false;
+                book.label6.Visible = false;
+                book.label7.Visible = false;
                 book.ShowDialog();
             }
             catch
@@ -223,7 +223,7 @@ namespace WindowsFormsApplication1
         {
             try
             {
-                book book = new book(CheckToCreateJournal, CheckToAdd);
+                book book = new book();
                 book.Owner = this;
                 book.textBox1.Text = dataGridView2.CurrentRow.Cells[0].Value.ToString();
                 book.textBox2.Text = dataGridView2.CurrentRow.Cells[1].Value.ToString();
@@ -235,26 +235,11 @@ namespace WindowsFormsApplication1
                 book.textBox4.Text = dataGridView2.CurrentRow.Cells[4].Value.ToString();
                 book.textBox5.Text = dataGridView2.CurrentRow.Cells[5].Value.ToString();
                 CheckToCreateJournal = true; //     переводим в режим редактирования  
-                CheckToAdd = true;
+                CheckToAdd = true; // работаем с журналом
                 book.Text = "Изменение журнала";
-                book.label6.Visible = false;
-                book.label7.Visible = false;
-                book.ShowDialog();
-                /*
-                journal journal = new journal(CheckToCreateJournal);
-                journal.Owner = this;
-                journal.textBox1.Text = dataGridView2.CurrentRow.Cells[0].Value.ToString();
-                journal.textBox2.Text = dataGridView2.CurrentRow.Cells[1].Value.ToString();
-                DateTime newDateTime;
-                string s;
-                s = "30.03." + dataGridView2.CurrentRow.Cells[3].Value.ToString() + " 20:28:46"; //дописываем для правильного формата любую дату и время
-                DateTime.TryParse(s, out newDateTime);
-                journal.dateTimePicker1.Value = newDateTime;
-                journal.textBox4.Text = dataGridView2.CurrentRow.Cells[4].Value.ToString();
-                journal.textBox5.Text = dataGridView2.CurrentRow.Cells[5].Value.ToString();
-                CheckToCreateJournal = true; //     переводим в режим редактирования 
-                journal.Text = "Изменение журнала";
-                journal.ShowDialog();*/
+                book.label4.Visible = false;
+                book.label5.Visible = false;
+                book.ShowDialog();                
             }
             catch
             {

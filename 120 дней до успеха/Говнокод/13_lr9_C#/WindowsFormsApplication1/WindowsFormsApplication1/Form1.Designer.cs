@@ -372,7 +372,7 @@
             this.MinimumSize = new System.Drawing.Size(900, 315);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "v1.0.0.1";
+            this.Text = "book & journal";
             this.MaximumSizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.MinimumSizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);

@@ -12,14 +12,12 @@ namespace WindowsFormsApplication1
 {
     public partial class book : Form
     {
-        public bool InCheckToAdd;
-
-        public book(bool CheckToCreateBook, bool CheckToAdd)
+        
+        public book()
         {            
-            InitializeComponent();
+            InitializeComponent();            
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.CustomFormat = "yyyy";
-            InCheckToAdd = CheckToAdd;
+            dateTimePicker1.CustomFormat = "yyyy";            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -80,9 +78,10 @@ namespace WindowsFormsApplication1
 
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!InCheckToAdd) // Если книга
+            Form1 main = this.Owner as Form1;
+            if (!main.CheckToAdd) // Если книга
             {
-                if (Char.IsDigit(e.KeyChar) == false) return; // Если символ цифра, то возвращаемся из метода
+                if (Char.IsDigit(e.KeyChar) == false) return; // Если символ не цифра, то возвращаемся из метода
                 e.Handled = true;
                 return;
             }
@@ -90,7 +89,8 @@ namespace WindowsFormsApplication1
 
         private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (InCheckToAdd) // Если журнал
+            Form1 main = this.Owner as Form1;
+            if (main.CheckToAdd) // Если журнал
             {
                 if (Char.IsDigit(e.KeyChar) == true) // Если символ цифра, то возвращаемся из метода
                 {
