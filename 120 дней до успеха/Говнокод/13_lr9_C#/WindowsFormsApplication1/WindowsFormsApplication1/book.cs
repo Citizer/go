@@ -24,8 +24,7 @@ namespace WindowsFormsApplication1
         {
             Form1 main = this.Owner as Form1; //стали владельцем
 
-            //проверка всех textbox на пустоту, если пустой то закрасить красным        
-            
+            //проверка всех textbox на пустоту, если пустой то закрасить красным            
             bool someEmpty = false;
             foreach (TextBox textBox in Controls.OfType<TextBox>())
             {
@@ -36,35 +35,33 @@ namespace WindowsFormsApplication1
                 }               
             }
 
-            if ((!someEmpty) & (!main.CheckToCreateBook) & (!main.CheckToAdd)) //если не пустые и нажата сохранить и выбрана книга то добавляем
+            if ((!someEmpty) & (!main.CheckToCreate) & (!main.CheckToAdd)) //если не пустые и нажата сохранить и выбрана книга то добавляем
             {              
                 main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);
                 main.dataGridView1.AutoResizeColumns();
                 this.Close();
             }
 
-            if ((!someEmpty) & (main.CheckToCreateBook) & (!main.CheckToAdd)) //если не пустые и нажата изменить и выбрана книга то редактируем
+            if ((!someEmpty) & (main.CheckToCreate) & (!main.CheckToAdd)) //если не пустые и нажата изменить и выбрана книга то редактируем
             {
                 //сначала удаляем текущую запись, потом записываем изменения             
                 int delete = main.dataGridView1.SelectedCells[0].RowIndex;
                 main.dataGridView1.Rows.RemoveAt(delete);
-                main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);
-                main.CheckToCreateBook = false; //переводим в режим добавления, а не редактирования      
+                main.dataGridView1.Rows.Add(textBox1.Text, textBox2.Text, "book", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);                    
                 main.dataGridView2.AutoResizeColumns();
                 this.Close();
             }
 
-            if ((!someEmpty) & (!main.CheckToCreateJournal) & (main.CheckToAdd)) //если не пустые и нажата сохранить и выбран журнал
+            if ((!someEmpty) & (!main.CheckToCreate) & (main.CheckToAdd)) //если не пустые и нажата сохранить и выбран журнал
             {
                 main.dataGridView2.Rows.Add(textBox1.Text, textBox2.Text, "journal", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);
                 this.Close();
             }
-            if ((!someEmpty) & (main.CheckToCreateJournal) & (main.CheckToAdd))//если не пустые и нажата изменить и выбран журнал
+            if ((!someEmpty) & (main.CheckToCreate) & (main.CheckToAdd))//если не пустые и нажата изменить и выбран журнал
             {
                 int delete = main.dataGridView2.SelectedCells[0].RowIndex;
                 main.dataGridView2.Rows.RemoveAt(delete);
-                main.dataGridView2.Rows.Add(textBox1.Text, textBox2.Text, "journal", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);
-                main.CheckToCreateJournal = false; //переводим в режим добавления, а не сохранения
+                main.dataGridView2.Rows.Add(textBox1.Text, textBox2.Text, "journal", dateTimePicker1.Value.Year.ToString(), textBox4.Text, textBox5.Text);                
                 this.Close();
             }
 

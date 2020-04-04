@@ -14,8 +14,7 @@ namespace WindowsFormsApplication1
     public partial class Form1 : Form
     {
         string[] separator = { "!?&№~" };        //разделитель записей в файле
-        public bool CheckToCreateBook = false; //переменная для проверки на добавление или редактирование книг
-        public bool CheckToCreateJournal = false; //переменная для проверки на добавление или редактирование журналов
+        public bool CheckToCreate; //переменная для проверки на добавление или редактирование, false - добавление, true - редактирование   
         public bool CheckToAdd; //переменная для проверки работы с книгой или журналом, false - книга, true - журнал
 
 
@@ -64,10 +63,11 @@ namespace WindowsFormsApplication1
         {
             book book = new book();
             book.Owner = this;
-            book.Text = "Добавление книги";                       
-            book.label6.Visible = false;
-            book.label7.Visible = false;
+            book.Text = "Добавление книги";
+            book.label4.Text = "Город";
+            book.label5.Text = "Издательство";
             CheckToAdd = false; //работаем с книгой
+            CheckToCreate = false;
             book.ShowDialog();
         }
 
@@ -75,10 +75,13 @@ namespace WindowsFormsApplication1
         {
             book book = new book();
             book.Owner = this;
-            book.Text = "Добавление журнала";            
-            book.label4.Visible = false;
-            book.label5.Visible = false;
+            book.Text = "Добавление журнала";
+            book.label4.Text = "Название журнала";
+            book.label4.Left = 50;
+            book.label5.Text = "Номер журнала";
+            book.label5.Left = 65;
             CheckToAdd = true; //работаем с журналом
+            CheckToCreate = false;
             book.ShowDialog();
             /*
             journal journal = new journal(CheckToCreateJournal);
@@ -206,11 +209,11 @@ namespace WindowsFormsApplication1
                 book.dateTimePicker1.Value = newDateTime;
                 book.textBox4.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
                 book.textBox5.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                CheckToCreateBook = true; //     переводим в режим редактирования  
+                CheckToCreate = true; //     переводим в режим редактирования  
                 CheckToAdd = false; // работаем с книгой
                 book.Text = "Изменение книги";
-                book.label6.Visible = false;
-                book.label7.Visible = false;
+                book.label4.Text = "Город";
+                book.label5.Text = "Издательство";
                 book.ShowDialog();
             }
             catch
@@ -234,11 +237,14 @@ namespace WindowsFormsApplication1
                 book.dateTimePicker1.Value = newDateTime;
                 book.textBox4.Text = dataGridView2.CurrentRow.Cells[4].Value.ToString();
                 book.textBox5.Text = dataGridView2.CurrentRow.Cells[5].Value.ToString();
-                CheckToCreateJournal = true; //     переводим в режим редактирования  
+                CheckToCreate = true; //     переводим в режим редактирования  
                 CheckToAdd = true; // работаем с журналом
                 book.Text = "Изменение журнала";
-                book.label4.Visible = false;
-                book.label5.Visible = false;
+                book.Text = "Добавление журнала";
+                book.label4.Text = "Название журнала";
+                book.label4.Left = 50;
+                book.label5.Text = "Номер журнала";
+                book.label5.Left = 65;
                 book.ShowDialog();                
             }
             catch
@@ -249,17 +255,17 @@ namespace WindowsFormsApplication1
 
         private void Form1_SizeChanged(object sender, EventArgs e) // подгонка размеров при изменении размеров формы
         {
-            AllResize();
-
-        }
-
-        public void AllResize()
-        {
             dataGridView1.Width = this.Width / 2 - 35;
             dataGridView2.Width = this.Width / 2 - 25;
             dataGridView2.Left = this.Width / 2 - 3;
             button1.Left = this.Width / 2 - 165;
             button3.Left = this.Width / 2 + 18;
+            AllResize();
+        }
+
+        public void AllResize()
+        {
+            
 
             dataGridView1.AutoResizeColumns();
             float size = 0;
@@ -291,9 +297,9 @@ namespace WindowsFormsApplication1
                 dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 dataGridView1.AutoResizeColumns();
             }
-        }
+        }        
 
-        private void dataGridView1_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             AllResize();
         }

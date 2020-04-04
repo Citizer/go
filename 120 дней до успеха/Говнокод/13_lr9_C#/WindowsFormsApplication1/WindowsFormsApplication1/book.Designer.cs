@@ -40,8 +40,6 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
@@ -101,6 +99,7 @@
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Город";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // textBox4
             // 
@@ -117,7 +116,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(74, 125);
+            this.label5.Location = new System.Drawing.Point(74, 128);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 13);
             this.label5.TabIndex = 9;
@@ -158,32 +157,12 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(133, 20);
             this.dateTimePicker1.TabIndex = 11;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(66, 128);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(87, 13);
-            this.label6.TabIndex = 23;
-            this.label6.Text = "Номер журнала";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(50, 102);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(103, 13);
-            this.label7.TabIndex = 21;
-            this.label7.Text = "Название журнала";
-            // 
             // book
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(314, 194);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
@@ -197,9 +176,9 @@
             this.Controls.Add(this.textBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(640, 640);
+            this.MaximumSize = new System.Drawing.Size(640, 232);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(330, 38);
+            this.MinimumSize = new System.Drawing.Size(330, 232);
             this.Name = "book";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Добавление/изменение книги";
@@ -219,8 +198,6 @@
         public System.Windows.Forms.TextBox textBox4;
         public System.Windows.Forms.TextBox textBox5;
         public System.Windows.Forms.DateTimePicker dateTimePicker1;
-        public System.Windows.Forms.Label label6;
-        public System.Windows.Forms.Label label7;
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label5;
     }
