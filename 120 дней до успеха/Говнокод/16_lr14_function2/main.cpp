@@ -26,33 +26,64 @@
 */
 
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
-//Ввод матрицы с клавиатуры
-void inputMatrix (int N, int M, int **array) {
+//Ввод матрицы с клавиатуры или случайно
+void inputMatrix (int N, int M, int random, int **array) {
+    srand(time(NULL));
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
-            cout << "Enter A[" << i << "][" << j << "]: ";
-            cin >> array[i][j];
+            if (random == 1) {
+                array[i][j] = rand() % 10 - 5;
+            } else {
+                cout << "Enter A[" << i << "][" << j << "]: ";
+                cin >> array[i][j];
+            }
+
         }
     }
 }
 
 //Вывод матрицы
-void printMatrix(int N, int M, int **array) {
+void printMatrix (int N, int M, int **array) {
     cout << endl << "Your matrix" << endl;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
-            cout.width(3);
+            cout.width(5);
             cout << array[i][j];
         }
         cout << endl;
     }
 }
 
+/*Меняем элементы ниже побочной диагонали на ноль. Так как матрица необязательно квадратная, то в зависимости от типа матрицы
+ применяем разные алгоритмы*/
+void replaceNegative (int N, int M, int **array) {
+    if (N > M) { // число строк больше числа столбцов
+        for(int i = N - M + 1; i < N; i++) {
+            int k = 1;
+            for (int j = M - 1; j >= k; j--) {
+                if (array[i][j] < 0) {
+                    array[i][j] = 0;
+                }
+            }
+            k++;
+        }
+    } else { //число столбцов больше числа строк или матрица квадратная
+        for (int i = 0; i < N; i++) {
+            for (int j = N - i; j < M; j++) {
+                if (array[i][j] < 0) {
+                    array[i][j] = 0;
+                }
+            }
+        }
+    }
+}
+
 int main() {
-    int countOfRows, countOfColumns, countOfPositive = 0, countOfNegative = 0;
+    int countOfRows, countOfColumns, countOfPositive = 0, countOfNegative = 0, vvodrandom;
 
     //Размеры матрицы
         cout << "Enter size of matrix" << endl;
@@ -68,16 +99,19 @@ int main() {
      }
 
     //Вводим матрицу
-    inputMatrix(countOfRows, countOfColumns, matrix);
+    cout << "How do we fill in the matrix? Use the keyboard to enter '0', and randomly enter '1': ";
+    cin >> vvodrandom;
 
-    //Выводим мамрицу
+    inputMatrix(countOfRows, countOfColumns, vvodrandom, matrix);
+
+    //Выводим матрицу
     printMatrix(countOfRows, countOfColumns, matrix);
 
     /*Ищем количество  положительных  элементов  выше  побочной  диагонали.
      Так как матрица необязательно квадратная, то в зависимости от типа матрицы
      применяем разные алгоритмы*/
     if (countOfColumns < countOfRows) { //число столбцов меньше числа строк
-        for (int i = 0; i < countOfRows - 2; i++) {
+        for (int i = 0; i < countOfColumns; i++) {
             for (int j = countOfRows - i - 2; j >= 0; j--) {
                 if (matrix[j][i] > 0) {
                     countOfPositive++;
@@ -86,23 +120,30 @@ int main() {
         }
     } else { //число столбцов больше числа строк или матрица квадратная
         for (int i = 0; i < countOfRows - 1; i++) {
-            for (int j = 0; j < countOfRows - i - 1; j++) {
+            for (int j = 0; j < countOfRows - i - 1; j++) {                
                 if (matrix[i][j] > 0) {
                     countOfPositive++;
                 }
             }
         }
     }
-    cout << "Count of positive elements above the side diagonal: " << countOfPositive << endl;
+    cout << "Count of positive elements above the side diagonal: " << countOfPositive << endl;    
 
-    /*Ищем количество отрицательных элементов ниже побочной диагонали. Так как матрица необязательно квадратная, то в зависимости от типа матрицы
+    /*Ищем количество отрицательных элементов ниже побочной диагонали и меняем их на ноль. Так как матрица необязательно квадратная, то в зависимости от типа матрицы
      применяем разные алгоритмы*/
-    if (countOfRows > countOfColumns) {
-
-
+    if (countOfRows > countOfColumns) { // число строк больше числа столбцов
+        for(int i = countOfRows - countOfColumns + 1; i < countOfRows; i++) {
+            int k = 1;
+            for (int j = countOfColumns - 1; j >= k; j--) {
+                if (matrix[i][j] < 0) {
+                    countOfNegative++;
+                }
+            }
+            k++;
+        }
     } else { //число столбцов больше числа строк или матрица квадратная
         for (int i = 0; i < countOfRows; i++) {
-            for (int j = countOfColumns - 1; j > countOfColumns - countOfRows - i; j--) {
+            for (int j = countOfRows - i; j < countOfColumns; j++) {
                 if (matrix[i][j] < 0) {
                     countOfNegative++;
                 }
@@ -110,5 +151,11 @@ int main() {
         }
     }
     cout << "Count of negative elements below the side diagonal: " << countOfNegative << endl;
+
+    //Меняем матрицу
+    replaceNegative(countOfRows, countOfColumns, matrix);
+
+    //Выводим измененную матрицу
+    printMatrix(countOfRows, countOfColumns, matrix);
 
 }
