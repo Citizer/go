@@ -6,77 +6,69 @@
 "vixi" (0.5). */
 
 #include <iostream>
+#include <cstring>
+#include <vector>
 
 using namespace std;
 
 int main() {
 
-    string text, s, s2;
-    char s1;
-    int max_id = 0, max_count = 0, temp_count, space;
+    vector<string> max_word;
+    string text;
+    int max_id = 0, temp_count, symbols[256]; //массив symbols для хранения количества вхождений символа в текст. Всего 256 символов
     float max_part =0, temp_part;
+    char* token;//для опередления самого длинного слова для функции strtok_s
+    char* next_token = NULL;
+    char split[] = " " "," "-" "!" "?" "." """" "("")";
 
     cout << "Enter text: ";
     getline (cin, text);
-    s = text;
 
     //Ищем наиболее часто встречающийся символ
-    for (int i = 0; i < text.size(); i++) {
-        s1 = text[i];
-        temp_count = 0;
-        if ((s1 != ' ') && (s1 !=',') && (s1 != '.')) { // проверяем что очередной символ не пробел, запятая или точка
-            for (int j = i; j < text.size(); j++) {
-                if (s1 == s[j]) {
-                    temp_count++;
-                }
-            }
-            if (temp_count > max_count) {
-                max_count = temp_count;
-                max_id = i;
-            }
+    //Сначала заполняем массив с количеством символов нулями
+    for (int i = 0; i < 256; i++) {
+        symbols[i] = 0;
+    }
+    // Подсчет символов в тексте
+    for (unsigned char c : text){
+        symbols[c]++;
+    }
+    // Определение индекса наиболее часто встречающегося символа.
+    for (int i = 1; i < 256; i++) {
+        if (symbols[i] > symbols[max_id]) {
+            max_id = i;
         }
     }
 
     //Вывод max
-    cout << "Letter that occurs the maximum number of times: " << text[max_id] << " - " << max_count << " times" << endl;
+    cout << "Letter that occurs the maximum number of times: " << static_cast<char>(max_id) << " - " << symbols[max_id] << " times" << endl;
 
-    //Ищем слова с максимальным вхождением. Сначала найдем максимальную долю
-    s = s + ' '; // добавляем в конец пробел для удобства
-    for (int i = 0; i < s.size(); i++) {
-        space = s.find(' '); //находим пробел
-        s2 = s.substr(0, space); // копируем до пробела
+    //Ищем слова с максимальным вхождением.
+    token = strtok_s(&text[0], split, &next_token); //берем очередное слово
+    while (token != NULL) {
         temp_count = 0;
-        int len = s2.size();
+        int len = strlen(token);
         for (int j = 0; j < len; j++) {
-            if (s2[j] == text[max_id]) {
+            if (token[j] == static_cast<char>(max_id)) {
                 temp_count++;
             }
-            temp_part = float(temp_count) / len * 100; //вычисляем долю в слове
-        }
-        if (temp_part > max_part) {
-            max_part = temp_part;
-        }
-        s.erase(0,space + 1); // удаляем все до пробела и пробел
-    }
-    cout << "Maximum percentage of words: " << max_part << "%" << endl;
-
-    //Теперь ищем слова с максимальной долей
-    s = text + ' '; // добавляем в конец пробел для удобства
-    cout << "Words of maximum percentage: ";
-    for (int i = 0; i < s.size(); i++) {
-        space = s.find(' '); //находим пробел
-        s2 = s.substr(0, space); // копируем до пробела
-        temp_count = 0;
-        int len = s2.size();
-        for (int j = 0; j < len; j++) {
-            if (s2[j] == text[max_id]) {
-                temp_count++;
-            }
-        }
         temp_part = float(temp_count) / len * 100; //вычисляем долю в слове
-        if (temp_part == max_part) {
-            cout << s2 << " ";
         }
-        s.erase(0,space + 1); // удаляем все до пробела и пробел
+        if (temp_part == max_part) { //Если уже есть такая доля то добавляем в массив
+            max_word.push_back(token);
+        }
+        if (temp_part > max_part) { //Если новая максимальная доля, то сначала очищаем массив, потом добавляем новое слово
+            max_part = temp_part;
+            max_word.clear();
+            max_word.push_back(token);
+        }
+        token = strtok_s(NULL, split, &next_token); //переход к следующему слову
+    }
+
+    //Вывод максимальной доли и всех слов с максимальной долей
+    cout << "Maximum percentage of words: " << max_part << "%" << endl;
+    cout << "Words of maximum percentage: ";
+    for (int i = 0; i < max_word.size(); i++) {
+        cout << max_word[i] << ", ";
     }
 }
