@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -10,6 +11,7 @@ typedef int *pInt;
 
 int main() {
     int countOfRows, countOfColumns, countNoZero = 0;
+    vector<int> E;
     ofstream ofs;
 
     //Читаем файл
@@ -27,16 +29,12 @@ int main() {
             D[i] = new int[countOfColumns];
         }
 
-        //Создаем массив
-        int *E;
-        E = new int[countOfRows * countOfColumns];
-
         //Считываем данные в матрицу и располагаем ненулевые элементы в массив
         for (int i = 0; i < countOfRows; i++) {
             for (int j = 0; j < countOfColumns; j++) {
                 ifs >> D[i][j];
                 if (D[i][j] != 0) {
-                    E[countNoZero] = D[i][j];
+                    E.push_back(D[i][j]);
                     countNoZero++;
                 }
             }
